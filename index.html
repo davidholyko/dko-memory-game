@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<head>
+  <title> Memory Card Game by DKO</title>
+
+
+
+  <!-- Do not add `link` tags-->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Do not add `script` tags-->
+  <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+  <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+
+</head>
+
+<body>
+  <div id="game">
+    <div class="" id="header">
+      <h1> Memory Game </h1>
+    </div>
+    <div id="nav">
+      <a href="#instructions">
+        <h2> Instructions </h2>
+      </a>
+      <a href="#game-board">
+        <h2> Game</h2>
+      </a>
+    </div>
+
+    <div class="d-flex justify-content-center" id="instructions-header">
+      <h1> Instructions </h1>
+    </div>
+
+    <div id="instructions">
+      <p> Click two cards to match! The objective of the game is to match all the cards.
+        There are four unique cards to match. Once a card is matched with the same card,
+        those cards can no longer be matched with any other card and remain static. If
+        a card does not match another card, both cards are flipped over on the next click.
+        If you try to match a card with itself, it will output text saying you cannot match
+        a card with itself!
+      </p>
+    </div>
+
+    <div id="user-feedback">
+      <div id="score"></div>
+      <div id="game-text"></div>
+    </div>
+
+    <div id="game-board-container">
+      <div id="game-board" class=""></div>
+      <button type="button" class="myButton" id="reset-button">Reset</button>
+    </div>
+
+
+    <div class="footer">
+      <p class="copyright"> Copyright 2018; David Ko</p>
+      <a class="copyright" href="https://github.com/davidholyko/wdi-fundamentals-memorygame" target="_blank">Github Repo Link</a>
+      <p class="copyright"> Created for &hearts; by <span class="name"> GA </span> </p>
+    </div>
+  </div>
+
+</body>

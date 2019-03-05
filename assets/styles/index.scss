@@ -1,0 +1,134 @@
+@import '~bootstrap/scss/bootstrap';
+
+a {
+  margin-left: 20px;
+  margin-right: 20px;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    color: green;
+    text-decoration: none;
+  }
+}
+
+.card {
+  width: 175px;
+  height: 279px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+  margin-top: 40px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.copyright {
+  font-family: "Raleway", sans-serif;
+  margin: 16px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  background-color: #0D2C40;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  position: fixed;
+  bottom: 0;
+  height: 5vh;
+  width: 100vw;
+}
+
+#game {
+  height: 50vh;
+}
+
+#game-board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#game-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 775px;
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+h2 {
+  font-family: "Raleway", sans-serif;
+}
+
+#header {
+  display: flex;
+  background-color: #F15B31;
+  color: #FFF;
+  padding: 30px 20px;
+  justify-content: center;
+}
+
+#nav {
+  display: flex;
+  justify-content: center;
+  background-color: #00A6B3;
+  color: #FFF;
+  padding: 5px;
+  margin: 0 auto;
+  font-family: "Raleway", sans-serif;
+}
+
+.myButton {
+  margin-top: 30px;
+  margin-bottom: 90px;
+  -webkit-box-shadow: 0 10px 14px -7px #276873;
+  box-shadow: 0 10px 14px -7px #276873;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+  background: -webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+  background: linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+  background-color: #599bb3;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 32px 76px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #3d768a;
+}
+
+.myButton:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
+  background: linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+}
+
+.myButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.name {
+  color: #F15B31;
+  font-weight: 700;
+}
+
+p {
+  font-family: "Droid Serif", serif;
+  margin-left: 25px;
+  margin-right: 25px;
+  text-align: justify;
+}

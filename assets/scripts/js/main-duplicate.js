@@ -285,5 +285,3 @@ const createBoard = () => {
   // adds reset button with function reset
   document.getElementById('reset-button').addEventListener('click', reset)
 }
-
-createBoard()

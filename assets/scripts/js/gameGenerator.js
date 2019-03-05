@@ -1,5 +1,4 @@
 const store = require('../store')
-const userFeedback = require('./userFeedback')
 
 const createCard = (index, diff = 0) => {
   console.log('createCard')
@@ -21,20 +20,12 @@ const createBoard = () => {
   // initialize score to 0
   store.score = 0
 
-  //  makes cards 0-3
+  //  makes cards 0-3, 4-7
   for (let i = 0; i < store.cards.length; i++) { createCard(i) }
-
-  // makes cards 4-7
   for (let i = 4; i < store.cards.length + 4; i++) { createCard(i, 4) }
 
   // shuffles all cards around
   shuffleCards($('#game-board'))
-
-  // adds reset button with function reset
-  $('#reset-button').on('click', () => {
-    userFeedback.resetBoard()
-    createBoard()
-  })
 }
 
 module.exports = {

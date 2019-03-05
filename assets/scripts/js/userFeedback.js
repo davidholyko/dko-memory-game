@@ -2,39 +2,30 @@ const store = require('../store')
 
 const clearCards = () => {
   console.log('clearCards')
-  // clears the store.cardsInPlay array
-  store.store.cardsInPlay = []
+  store.cardsInPlay = []
 }
 
 const clearMatched = () => {
   console.log('clearMatched')
-  // clears matched array
   store.matched = []
 }
 
 const clearText = () => {
   console.log('clearText')
-  // clears text about game
-  const clearByID = (id) => {
-    const parent = document.getElementById(id)
-    while (parent.firstChild) {
-      parent.removeChild(parent.firstChild)
-    }
-  }
-
-  clearByID('score')
-  clearByID('game-text')
+  $('#score').empty()
+  $('#game-text').empty()
 }
 
-const resetBoard = () => {
-  console.log('resetBoard')
-  // Flips all cards to img back and removes is-flipped class
-  // Actually it resets the entire board by deleting everything and putting it back
+const clearBoard = () => {
+  console.log('clearBoard')
+  $('#game-board').empty()
+}
+
+const resetAll = () => {
+  console.log('resetAll')
   clearMatched()
   clearText()
-
-  const parent = $('#game-board')
-  while (parent.firstChild) { parent.removeChild(parent.firstChild) }
+  clearBoard()
 }
 
 const setGameText = (e, bool) => {
@@ -73,6 +64,7 @@ const setGameText = (e, bool) => {
 module.exports = {
   clearCards,
   clearMatched,
-  setGameText,
-  resetBoard
+  clearBoard,
+  resetAll,
+  setGameText
 }

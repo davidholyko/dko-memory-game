@@ -1,14 +1,16 @@
 const store = require('../store')
 const checkForMatch = require('./logic')
 const userFeedback = require('./userFeedback')
+const gameGenerator = require('./gameGenerator')
 
-const flipCard = (e) => {
+const flipCard = () => {
   console.log('flipCard')
   let cardOne // first card flipped in the store.cardsInPlay array
   let cardTwo // second card flipped in the store.cardsInPlay array
-  const dataId = e.getAttribute('data-id')
-  const dataCard = e.getAttribute('data-card')
-  const id = e.getAttribute('id')
+  const dataId = $(event.target).data('id')
+  const dataCard = $(event.target).data('card')
+  const id = $(event.target).attr('id')
+  const e = event.target
   const card = {
     // object that contains all relevant data
     img: store.cards[dataId].cardImage,
@@ -17,7 +19,7 @@ const flipCard = (e) => {
     rank: store.cards[dataId].rank,
     suit: store.cards[dataId].suit,
     id: id,
-    htmlElement: e
+    htmlElement: event.target
   }
 
   if (store.matched.length >= 2) {
@@ -80,20 +82,29 @@ const flipCard = (e) => {
     matchTwo.animate(animation, options)
 
     store.score++
-    userFeedback.gameText(card, true)
+    userFeedback.setGameText(card, true)
   } else if (!checkForMatch() && store.cardsInPlay.length === 2) {
     //  if its not a match, do nothing to store.cards and do text
 
     store.matched = store.cardsInPlay
-    userFeedback.gameText(card, false)
+    userFeedback.setGameText(card, false)
   }
 
   if (checkForMatch() === false && store.cardsInPlay.length === 1) {
     // outputs matching if only 1 card in store.cardsInPlay array
-    userFeedback.gameText(card, false)
+    userFeedback.setGameText(card, false)
   }
 
   if (store.cardsInPlay.length >= 2) { userFeedback.clearCards() }
 }
 
-module.exports = flipCard
+const resetBoard = () => {
+  userFeedback.resetAll()
+  gameGenerator.createBoard()
+}
+
+module.exports = {
+  flipCard,
+  resetBoard
+
+}

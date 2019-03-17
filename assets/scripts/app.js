@@ -6,9 +6,9 @@
 // use require without a reference to ensure a file is bundled
 // require('./example')
 
-const events = require('./js/events')
-const game = require('./js/gameGenerator')
-const store = require('./js/store-actions')
+const events = require('./javascript/events')
+const game = require('./javascript/game-generator')
+const store = require('./javascript/store-actions')
 
 $(() => {
   console.log('Running JavaScript...')

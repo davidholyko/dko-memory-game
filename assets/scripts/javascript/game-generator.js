@@ -4,7 +4,7 @@ const createCard = (index, diff = 0) => {
   console.log('createCard')
   const element =
   `<img
-    id="card-${index}"
+     id="card-${index}"
      src="public/images/back.png"
      data-pair="${index - diff}"
      data-id="${index}"

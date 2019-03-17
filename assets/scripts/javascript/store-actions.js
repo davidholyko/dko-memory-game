@@ -6,7 +6,6 @@ const initializeStore = () => {
   store.start = false
   store.over = false
   store.cardsInPlay = []
-  store.matched = []
   store.timer = () => {}
   storeElements()
 }
@@ -30,6 +29,7 @@ const resetCardsInPlay = () => {
 }
 
 const storeElements = () => {
+  console.log('storeElements')
   store.cards = [
     { rank: 'Queen',
       suit: 'Hearts',

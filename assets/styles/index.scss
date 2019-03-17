@@ -46,7 +46,6 @@ body {
 }
 
 #game {
-  // max-height: calc(95vh - 100px);
   overflow-y: auto;
 }
 
@@ -86,6 +85,10 @@ h2 {
 
 #header-text {
   height: 100px;
+}
+
+img[data-clickable=false] {
+  cursor: auto;
 }
 
 .myButton {

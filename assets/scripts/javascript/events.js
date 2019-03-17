@@ -2,7 +2,7 @@ const store = require('../store')
 const logic = require('./logic')
 const htmlActions = require('./html-actions')
 const storeActions = require('./store-actions')
-const gameGenerator = require('./gameGenerator')
+const gameGenerator = require('./game-generator')
 const play = require('./play')
 
 const onClickCard = () => {
@@ -35,8 +35,8 @@ const resetBoard = () => {
   console.log('resetBoard')
   event.preventDefault()
   htmlActions.resetAll()
+  storeActions.resetStore()
   gameGenerator.createBoard()
-  storeActions.resetAll()
 }
 
 const toggleInstructions = () => {

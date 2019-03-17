@@ -2,7 +2,13 @@
 
 A 4-pair card memory game in JavaScript. Originally written by myself (David Ko) in vanilla JavaScript as General Assembly Web Development Immersive pre-work. Refactored with jQuery, Bootstrap and SCSS after 6 weeks in GA program. Original file located at 'assets/scripts/old/main-duplicate'.
 
+
 ### Pre-refactored
+
+old live demonstration hosted on heroku:
+https://cardmemorygame.herokuapp.com/
+
+![Pre-General Assembly](https://i.imgur.com/3Joifek.png)
 
 ```
 console.log('Up and running!')

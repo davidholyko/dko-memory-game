@@ -1,9 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 
 a {
-  margin-left: 20px;
-  margin-right: 20px;
-  border-bottom: 2px solid transparent;
   text-decoration: none;
   color: white;
 
@@ -13,6 +10,14 @@ a {
   }
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 .card {
   width: 175px;
   height: 279px;
@@ -20,32 +25,29 @@ a {
   transform-style: preserve-3d;
   cursor: pointer;
   position: relative;
-  margin-top: 40px;
+  margin-top: 32px;
   margin-left: 8px;
   margin-right: 8px;
 }
 
 .copyright {
   font-family: "Raleway", sans-serif;
-  margin: 16px;
 }
 
 .footer {
   display: flex;
-  justify-content: space-between;
-  text-transform: uppercase;
-  background-color: #0D2C40;
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
-  position: fixed;
+  position: absolute;
   bottom: 0;
+  background-color: black;
+  color: white;
   height: 5vh;
-  width: 100vw;
+  padding: 0;
+  margin: 0;
 }
 
 #game {
-  height: 50vh;
+  // max-height: calc(95vh - 100px);
+  overflow-y: auto;
 }
 
 #game-board-container {
@@ -72,26 +74,22 @@ h2 {
 }
 
 #header {
-  display: flex;
-  background-color: #F15B31;
+  margin: 0;
+  padding: 0;
   color: #FFF;
-  padding: 30px 20px;
   justify-content: center;
+  min-height: 150px;
+  max-height: 150px;
+  height: 150px;
+  background-color: #343a40;
 }
 
-#nav {
-  display: flex;
-  justify-content: center;
-  background-color: #00A6B3;
-  color: #FFF;
-  padding: 5px;
-  margin: 0 auto;
-  font-family: "Raleway", sans-serif;
+#header-text {
+  height: 100px;
 }
 
 .myButton {
-  margin-top: 30px;
-  margin-bottom: 90px;
+  margin: 1rem 1rem 4rem;
   -webkit-box-shadow: 0 10px 14px -7px #276873;
   box-shadow: 0 10px 14px -7px #276873;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
@@ -118,7 +116,6 @@ h2 {
 
 .myButton:active {
   position: relative;
-  top: 1px;
 }
 
 .name {
@@ -126,9 +123,24 @@ h2 {
   font-weight: 700;
 }
 
+#nav {
+  display: flex;
+  justify-content: center;
+  background-color: #00A6B3;
+  color: #FFF;
+  margin: 0 auto;
+  font-family: "Raleway", sans-serif;
+  height: 50px;
+  padding: 0;
+}
+
 p {
   font-family: "Droid Serif", serif;
   margin-left: 25px;
   margin-right: 25px;
   text-align: justify;
+}
+
+#score-text {
+  height: 50px;
 }

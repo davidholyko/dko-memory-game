@@ -2,8 +2,15 @@ const store = require('../store')
 
 const createCard = (index, diff = 0) => {
   console.log('createCard')
-  const element = `<img src="assets/scripts/images/back.png" data-id="${index - diff}"
-   data-card="${index}" id="card-${index}" class="card"></img>`
+  const element =
+  `<img
+    id="card-${index}"
+     src="assets/scripts/images/back.png"
+     data-pair="${index - diff}"
+     data-id="${index}"
+     data-clickable="true"
+     class="card">
+   </img>`
   $('#game-board').append(element)
   $(`#card-${index}`).animate(store.animation, store.options)
 }
@@ -15,9 +22,6 @@ const shuffleCards = (parent) => {
 
 const createBoard = () => {
   console.log('createBoard')
-  // Creates the game board by adding cards as children to reset button id
-
-  // initialize score to 0
   store.score = 0
 
   //  makes cards 0-3, 4-7

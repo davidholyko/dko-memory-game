@@ -8,10 +8,11 @@
 
 const events = require('./js/events')
 const game = require('./js/gameGenerator')
+const store = require('./js/store-actions')
 
 $(() => {
   console.log('Running JavaScript...')
+  store.initializeStore()
   game.createBoard()
-  $('.card').on('click', events.flipCard)
-  $('#reset-button').on('click', events.resetBoard)
+  events.addHandlers()
 })

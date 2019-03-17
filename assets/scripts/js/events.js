@@ -1,110 +1,57 @@
 const store = require('../store')
-const checkForMatch = require('./logic')
-const userFeedback = require('./userFeedback')
+const logic = require('./logic')
+const htmlActions = require('./html-actions')
 const gameGenerator = require('./gameGenerator')
+const play = require('./play')
 
-const flipCard = () => {
-  console.log('flipCard')
-  let cardOne // first card flipped in the store.cardsInPlay array
-  let cardTwo // second card flipped in the store.cardsInPlay array
-  const dataId = $(event.target).data('id')
-  const dataCard = $(event.target).data('card')
-  const id = $(event.target).attr('id')
-  const e = event.target
-  const card = {
-    // object that contains all relevant data
-    img: store.cards[dataId].cardImage,
-    key: dataId,
-    card: dataCard,
-    rank: store.cards[dataId].rank,
-    suit: store.cards[dataId].suit,
-    id: id,
-    htmlElement: event.target
-  }
+const onClickCard = () => {
+  console.log('onClickCard')
+  event.preventDefault()
 
-  if (store.matched.length >= 2) {
-    // flips over prev store.cards that were not match
-    const matchOne = $(`#${store.matched[0].id}`)
-    const matchTwo = $(`#${store.matched[1].id}`)
+  if (!store.start) { play.start() }
+  if (store.over) { return }
+  if ($(event.target).attr('data-clickable') === 'false') { return }
 
-    let animation = [
-      { transform: 'rotateY(0deg)' },
-      { transform: 'rotateY(180deg)' } ]
-    let options = { duration: 250, iterations: 1 }
+  play.addCardToStore($(event.target).data('pair'), $(event.target).data('id'), event.target)
+  play.flipCard($(event.target).data('pair'), $(event.target).data('id'), event.target)
 
-    if (store.matched[0].id === store.matched[1].id) {
-      animation = [
-        { transform: 'rotateY(0deg)' },
-        { transform: 'rotateY(360deg)' } ]
-      options = { duration: 500, iterations: 1 }
-    }
-
-    matchOne.setAttribute('src', '../images/back.png')
-    matchOne.animate(animation, options)
-    matchTwo.setAttribute('src', '../images/back.png')
-    matchTwo.animate(animation, options)
-
-    userFeedback.clearMatched()
-  }
-
-  // pushes card into store.cardsInPlay array
-  store.cardsInPlay.push(card)
-
-  // flips store.cards
-
-  if (store.cardsInPlay.length === 2) {
-    cardOne = document.getElementById(store.cardsInPlay[0].id)
-    cardTwo = document.getElementById(store.cardsInPlay[1].id)
-  }
-
-  if (e.getAttribute('src') === '../images/back.png') {
-    e.setAttribute('src', store.cards[card.key].cardImage)
-  }
-
-  if (checkForMatch() && store.cardsInPlay.length === 2) {
-    // if it is a match, remove event listeners by replacing with a clone with no event listener
-
-    const animation = [
-      { transform: 'rotateY(0deg)' },
-      { transform: 'rotateY(360deg)' }
-    ]
-    const options = {
-      duration: 500,
-      iterations: 1
-    }
-
-    const matchOne = cardOne.cloneNode(true)
-    const matchTwo = cardTwo.cloneNode(true)
-
-    cardOne.parentNode.replaceChild(matchOne, cardOne)
-    cardTwo.parentNode.replaceChild(matchTwo, cardTwo)
-
-    matchTwo.animate(animation, options)
-
+  if (logic.checkForMatch()) {
     store.score++
-    userFeedback.setGameText(card, true)
-  } else if (!checkForMatch() && store.cardsInPlay.length === 2) {
-    //  if its not a match, do nothing to store.cards and do text
-
-    store.matched = store.cardsInPlay
-    userFeedback.setGameText(card, false)
+    play.makeUnclickable()
+    play.start()
+    $('#score').text(`${store.score}`)
+    store.cardsInPlay = []
+  } else {
+    if (store.cardsInPlay.length === 2) { play.flipBack() }
   }
 
-  if (checkForMatch() === false && store.cardsInPlay.length === 1) {
-    // outputs matching if only 1 card in store.cardsInPlay array
-    userFeedback.setGameText(card, false)
-  }
-
-  if (store.cardsInPlay.length >= 2) { userFeedback.clearCards() }
+  console.log(store)
 }
 
 const resetBoard = () => {
-  userFeedback.resetAll()
+  console.log('resetBoard')
+  event.preventDefault()
+  htmlActions.resetAll()
   gameGenerator.createBoard()
+  store.start = false
+}
+
+const toggleInstructions = () => {
+  console.log('toggleInstructions')
+  event.preventDefault()
+  if ($('#instructions').css('display') !== 'none') {
+    $('#instructions').css('display', 'none')
+  } else {
+    $('#instructions').css('display', 'inline')
+  }
+}
+
+const addHandlers = () => {
+  $('#game-board').on('click', '.card', onClickCard)
+  $('#reset-button').on('click', resetBoard)
+  $('#toggle-instructions').on('click', toggleInstructions)
 }
 
 module.exports = {
-  flipCard,
-  resetBoard
-
+  addHandlers
 }

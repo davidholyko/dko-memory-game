@@ -1,6 +1,6 @@
 # Card Memory Game Refactored
 
-A 4-pair card memory game in JavaScript. Originally written in vanilla JavaScript and refactored with jQuery and SCSS.
+A 4-pair card memory game in JavaScript. Originally written in vanilla JavaScript and refactored with jQuery and SCSS. Original file located at 'assets/scripts/js/main-duplicate'.
 
 ### Pre-refactored
 

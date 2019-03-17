@@ -16,22 +16,22 @@ const onClickCard = () => {
   if ($(event.target).attr('data-clickable') === 'false') { return }
   if (store.cardsInPlay.length) { if ($(event.target).data('id') === store.cardsInPlay[0].id) { return } }
 
+  // flips card from back img to respective front face
   storeActions.addCardToStore($(event.target).data('pair'), $(event.target).data('id'), event.target)
   play.flipCard($(event.target).data('pair'), $(event.target).data('id'), event.target)
 
+  // do logic
   if (logic.checkForMatch()) {
-    store.score++
     play.makeUnclickable()
-    play.start()
-    $('#score').text(`${store.score}`)
-    store.cardsInPlay = []
+    htmlActions.updateScoreText()
+    storeActions.incrementScore()
+    storeActions.resetCardsInPlay()
   } else {
     if (store.cardsInPlay.length === 2) { play.flipBack() }
   }
 
-  if (store.score === 4) {
-    $('#score-text').html('<h1 class="text-center">You found all the matches! Please click reset to play again.</h1>')
-  }
+  // do winning text
+  if (store.score === 4) { $('#score-text').html(store.winningText) }
 }
 
 const resetBoard = () => {

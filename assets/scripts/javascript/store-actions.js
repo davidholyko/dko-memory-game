@@ -7,6 +7,7 @@ const initializeStore = () => {
   store.over = false
   store.cardsInPlay = []
   store.timer = () => {}
+  store.winningText = '<h1 class="text-center">You found all the matches! Please click reset to play again.</h1>'
   storeElements()
 }
 
@@ -23,10 +24,9 @@ const addCardToStore = (pair, id, htmlElement) => {
   store.cardsInPlay.push(card)
 }
 
-const resetCardsInPlay = () => {
-  console.log('resetCardsInPlay')
-  store.cardsInPlay = []
-}
+const resetCardsInPlay = () => { store.cardsInPlay = [] }
+
+const incrementScore = () => { store.score++ }
 
 const storeElements = () => {
   console.log('storeElements')
@@ -59,6 +59,7 @@ const storeElements = () => {
 }
 
 module.exports = {
+  incrementScore,
   initializeStore,
   resetStore,
   resetCardsInPlay,

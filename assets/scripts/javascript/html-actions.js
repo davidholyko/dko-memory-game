@@ -22,8 +22,11 @@ const resetAll = () => {
   clearBoard()
 }
 
+const updateScoreText = () => { $('#score').text(`${store.score}`) }
+
 module.exports = {
   clearCards,
   clearBoard,
-  resetAll
+  resetAll,
+  updateScoreText
 }

@@ -25,7 +25,9 @@ const onClickCard = () => {
     if (store.cardsInPlay.length === 2) { play.flipBack() }
   }
 
-  console.log(store)
+  if (store.score === 4) {
+    $('#score-text').html('<h1 class="text-center">You found all the matches! Please click reset to play again.</h1>')
+  }
 }
 
 const resetBoard = () => {

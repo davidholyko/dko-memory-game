@@ -17,7 +17,7 @@ const flipBack = () => {
 
   const flip = card => {
     card.animate(store.animation, store.options)
-    $(card).attr('src', 'assets/scripts/images/back.png')
+    $(card).attr('src', 'public/images/back.png')
   }
 
   store.timer = setTimeout(() => {

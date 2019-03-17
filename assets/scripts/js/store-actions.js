@@ -25,19 +25,19 @@ const storeElements = () => {
   store.cards = [
     { rank: 'Queen',
       suit: 'Hearts',
-      cardImage: 'assets/scripts/images/queen-of-hearts.png',
+      cardImage: 'public/images/queen-of-hearts.png',
       id: 0},
     { rank: 'Queen',
       suit: 'Diamonds',
-      cardImage: 'assets/scripts/images/queen-of-diamonds.png',
+      cardImage: 'public/images/queen-of-diamonds.png',
       id: 1 },
     { rank: 'King',
       suit: 'Hearts',
-      cardImage: 'assets/scripts/images/king-of-hearts.png',
+      cardImage: 'public/images/king-of-hearts.png',
       id: 2 },
     { rank: 'King',
       suit: 'Diamonds',
-      cardImage: 'assets/scripts/images/king-of-diamonds.png',
+      cardImage: 'public/images/king-of-diamonds.png',
       id: 0}]
 
   store.animation = [

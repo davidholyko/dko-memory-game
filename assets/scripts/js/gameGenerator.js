@@ -5,7 +5,7 @@ const createCard = (index, diff = 0) => {
   const element =
   `<img
     id="card-${index}"
-     src="assets/scripts/images/back.png"
+     src="public/images/back.png"
      data-pair="${index - diff}"
      data-id="${index}"
      data-clickable="true"

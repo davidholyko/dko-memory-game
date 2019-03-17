@@ -1,11 +1,5 @@
 const store = require('../store')
 
-const addCardToStore = (pair, id, htmlElement) => {
-  console.log('addCardToStore')
-  const card = { card: store.cards[pair], id: id, htmlElement: htmlElement }
-  store.cardsInPlay.push(card)
-}
-
 const flipCard = (pair, id, htmlElement) => {
   console.log('flipCard')
   $(htmlElement).attr('src', store.cards[pair].cardImage)
@@ -40,7 +34,6 @@ const start = () => {
 module.exports = {
   flipCard,
   flipBack,
-  addCardToStore,
   makeUnclickable,
   start
 }

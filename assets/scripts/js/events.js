@@ -1,6 +1,7 @@
 const store = require('../store')
 const logic = require('./logic')
 const htmlActions = require('./html-actions')
+const storeActions = require('./store-actions')
 const gameGenerator = require('./gameGenerator')
 const play = require('./play')
 
@@ -12,7 +13,7 @@ const onClickCard = () => {
   if (store.over) { return }
   if ($(event.target).attr('data-clickable') === 'false') { return }
 
-  play.addCardToStore($(event.target).data('pair'), $(event.target).data('id'), event.target)
+  storeActions.addCardToStore($(event.target).data('pair'), $(event.target).data('id'), event.target)
   play.flipCard($(event.target).data('pair'), $(event.target).data('id'), event.target)
 
   if (logic.checkForMatch()) {
@@ -35,7 +36,7 @@ const resetBoard = () => {
   event.preventDefault()
   htmlActions.resetAll()
   gameGenerator.createBoard()
-  store.start = false
+  storeActions.resetAll()
 }
 
 const toggleInstructions = () => {

@@ -10,10 +10,18 @@ const initializeStore = () => {
   store.timer = () => {}
   storeElements()
 }
+
 const resetStore = () => {
   console.log('resetStore')
   store.score = 0
   store.over = false
+  store.start = false
+}
+
+const addCardToStore = (pair, id, htmlElement) => {
+  console.log('addCardToStore')
+  const card = { card: store.cards[pair], id: id, htmlElement: htmlElement }
+  store.cardsInPlay.push(card)
 }
 
 const resetCardsInPlay = () => {
@@ -53,5 +61,6 @@ const storeElements = () => {
 module.exports = {
   initializeStore,
   resetStore,
-  resetCardsInPlay
+  resetCardsInPlay,
+  addCardToStore
 }

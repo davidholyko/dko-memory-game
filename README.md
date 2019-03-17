@@ -1,129 +1,295 @@
-[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+# Card Memory Game Refactored
 
-# browser-template
+A 4-pair card memory game in JavaScript. Originally written in vanilla JavaScript and refactored with jQuery and SCSS.
 
-A template for starting front-end projects. Webpack for `require` system, build
-pipeline, and development server. Boostrap and Handlebars.js included. No
-front-end frameworks included.
+### Pre-refactored
 
-## Installation
-
-1. [Download](../../archive/master.zip) this template.
-    - **Do Not Fork And Clone**
-    - Click the "Clone or Download" button and select "Download Zip".
-1. Move to the `wdi/projects` directory, then unzip the template directory with
-    `unzip /Users/<user-name>/Downloads/browser-template-master.zip`.
-1. Rename the template directory from `browser-template-master` to
-    `<project-name>-client`.
-1. Empty [`README.md`](README.md) and fill with your own content.
-1. Replace all instances of `ga-wdi-boston.browser-template` with the name of
-    your project.
-    - You can search for all instances of text in Atom by pressing
-    `commant + shift + f` on Mac or `ctrl + shift + f` on WSL.
-1. Move into the new project and `git init`.
-1. Add all of the files in your project with the command `git add --all`.
-      - **Note: This is the only time you should run this command!**
-1. Commit all of your files with the command `git commit`.
-      - Your commit title should read `Initial commit`.
-1. Install dependencies with `npm install`.
-1. Create a new repository on [github.com](https://github.com),
-    _not GitHub Enterprise_.
-1. Name the new repository with the same name used on Step 3.
-1. Follow the instructions on your new repository's setup page. For details on
-   how to push to Github, refer to the section on Github entitled "…or push an existing
-   repository from the command line." Further documentation can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
-
-## Structure
-
-### Scripts
-
-Developers should store JavaScript files in [`assets/scripts`](assets/scripts).
-The "manifest" or entry-point is
-[`assets/scripts/app.js`](assets/scripts/app.js). In general, only
-application initialization goes in this file. It's normal for developers to
-start putting all code in this file, but encourage them to break out different
-responsibilities and use the `require` syntax put references where they're
-needed.
-
-### Config
-
-Developers should set `apiUrls.production` and `apiUrls.development` in
-[`assets/scripts/config.js`](assets/scripts/config.js).  With
-`apiUrls` set, developers may rely on `apiUrl` as the base for API
-URLs.
-
-### Styles
-
-Developers should store styles in [`assets/styles`](assets/styles) and load them
-from [`assets/styles/index.scss`](assets/styles/index.scss). Bootstrap version 3 is
-included in this template.
-
-### Forms and Using `getFormFields`
-
-Developers should use [getFormFields](get-form-fields.md) to retrieve form data
-to send to an API.
-
-### Deployment
-
-To deploy a browser-template based SPA, run `grunt deploy`.
-
-## Adding Images
-
-To add images to your project, you must store them in the `public` directory.
-To use the image in HTML or CSS, write the path to the image like this:
-
-```html
-<img src="public/cat.jpg">
 ```
-or
-```css
-#my-cool-div {
-  background-image: url('public/cat.jpg')
-}
-```
+console.log('Up and running!')
 
-Note that there's no `./` or `/` in front of `public/filename.jpg`.
-
-## Adding Fonts
-
-To add custom fonts to your app, you can either use a CDN like Google Fonts, or
-you can download the fonts and save them in the `public` directory. If you use
-the former method, follow the directions on the website providing the fonts.
-
-For local fonts, put the files in `public`, and then import and use them in a
-`.scss` file like this:
-
-```scss
-@font-face {
-  font-family: 'Nature Beauty';
-  src: url('public/Nature-Beauty.ttf') format('truetype');
+let score
+let cardElement
+let cardsInPlay = []
+let matched = []
+const cards = [{
+  rank: 'Queen',
+  suit: 'Hearts',
+  cardImage: '../images/queen-of-hearts.png',
+  id: 0
+},
+{
+  rank: 'Queen',
+  suit: 'Diamonds',
+  cardImage: '../images/queen-of-diamonds.png',
+  id: 1
+},
+{
+  rank: 'King',
+  suit: 'Hearts',
+  cardImage: '../images/king-of-hearts.png',
+  id: 2
+},
+{
+  rank: 'King',
+  suit: 'Diamonds',
+  cardImage: '../images/king-of-diamonds.png',
+  id: 3
+}]
+let animation = [{
+  transform: 'rotateY(0deg)'
+},
+{
+  transform: 'rotateY(180deg)'
+}]
+let options = {
+  duration: 500,
+  iterations: 1,
+  delay: 100
 }
 
-.element-with-custom-font {
-  font-family: 'Nature Beauty';
+const checkForMatch = () => {
+  if (cardsInPlay.length < 2) {
+    // console.log("false");
+    return false
+  }
+
+  // if cards have the same key but are not the same card, return true
+  if (cardsInPlay.length === 2) {
+    if (cardsInPlay[0].key === cardsInPlay[1].key && cardsInPlay[0].card !== cardsInPlay[1].card) {
+      // console.log("true");
+      return true
+    } else {
+      // console.log("false");
+      return false
+    }
+  }
+}
+
+const flipCard = (e) => {
+  let cardOne // first card flipped in the cardsInPlay array
+  let cardTwo // second card flipped in the cardsInPlay array
+  const dataId = e.getAttribute('data-id')
+  const dataCard = e.getAttribute('data-card')
+  const id = e.getAttribute('id')
+  const card = {
+    // object that contains all relevant data
+    img: cards[dataId].cardImage,
+    key: dataId,
+    card: dataCard,
+    rank: cards[dataId].rank,
+    suit: cards[dataId].suit,
+    id: id,
+    htmlElement: e
+  }
+
+  if (matched.length >= 2) {
+    // flips over prev cards that were not match
+    const matchOne = document.getElementById(matched[0].id)
+    const matchTwo = document.getElementById(matched[1].id)
+
+    animation = [{
+      transform: 'rotateY(0deg)'
+    },
+    {
+      transform: 'rotateY(180deg)'
+    }
+    ]
+    options = {
+      duration: 250,
+      iterations: 1
+    }
+
+    if (matched[0].id === matched[1].id) {
+      animation = [{
+        transform: 'rotateY(0deg)'
+      },
+      {
+        transform: 'rotateY(360deg)'
+      }
+      ]
+      options = {
+        duration: 500,
+        iterations: 1
+      }
+    }
+
+    matchOne.setAttribute('src', '../images/back.png')
+    matchOne.animate(animation, options)
+    matchTwo.setAttribute('src', '../images/back.png')
+    matchTwo.animate(animation, options)
+
+    clearMatched()
+  }
+
+  // pushes card into cardsInPlay array
+  cardsInPlay.push(card)
+
+  // flips cards
+  e.classList.toggle('is-flipped')
+
+  console.log(cardsInPlay)
+
+  if (cardsInPlay.length === 2) {
+    cardOne = document.getElementById(cardsInPlay[0].id)
+    cardTwo = document.getElementById(cardsInPlay[1].id)
+  }
+
+  if (e.getAttribute('src') === '../images/back.png') {
+    e.setAttribute('src', cards[card.key].cardImage)
+  }
+
+  if (checkForMatch() && cardsInPlay.length === 2) {
+    // if it is a match, remove event listeners by replacing with a clone with no event listener
+
+    animation = [{
+      transform: 'rotateY(0deg)'
+    },
+    {
+      transform: 'rotateY(360deg)'
+    }
+    ]
+    options = {
+      duration: 500,
+      iterations: 1
+    }
+
+    const matchOne = cardOne.cloneNode(true)
+    const matchTwo = cardTwo.cloneNode(true)
+
+    cardOne.parentNode.replaceChild(matchOne, cardOne)
+    cardTwo.parentNode.replaceChild(matchTwo, cardTwo)
+
+    matchTwo.animate(animation, options)
+
+    score++
+    gameText(card, true)
+  } else if (!checkForMatch() && cardsInPlay.length === 2) {
+    //  if its not a match, do nothing to cards and do text
+
+    matched = cardsInPlay
+    gameText(card, false)
+  }
+
+  if (!checkForMatch() && cardsInPlay.length === 1) {
+    // outputs matching if only 1 card in cardsInPlay array
+    gameText(card, false)
+  }
+
+  if (cardsInPlay.length >= 2) {
+    clearCards()
+  }
+}
+
+const clearCards = () => {
+  // clears the cardsInPlay array
+  cardsInPlay = []
+}
+
+const clearMatched = () => {
+  // clears matched array
+  matched = []
+}
+
+const clearText = () => {
+  // clears text about game
+  const clearByID = (id) => {
+    const parent = document.getElementById(id)
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild)
+    }
+  }
+
+  clearByID('score')
+  clearByID('game-text')
+}
+
+const reset = () => {
+  // Flips all cards to img back and removes is-flipped class
+  // Actually it resets the entire board by deleting everything and putting it back
+  clearMatched()
+  clearText()
+
+  const parent = document.getElementById('game-board')
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild)
+  }
+
+  createBoard()
+}
+
+const gameText = (e, bool) => {
+  // outputs text about matches
+
+  clearText()
+  const gameTextElement = document.createElement('h2')
+  let gameText
+
+  if (bool) {
+    gameText = document.createTextNode('Match found: ' + e.rank + ' of ' + e.suit)
+  } else if (!bool && cardsInPlay.length === 2) {
+    gameText = document.createTextNode(cardsInPlay[0].rank + ' of ' + cardsInPlay[0].suit + ' does not match ' + cardsInPlay[1].rank + ' of ' + cardsInPlay[1].suit)
+    if (cardsInPlay[0].id === cardsInPlay[1].id) {
+      gameText = document.createTextNode(cardsInPlay[0].rank + ' of ' + cardsInPlay[0].suit + ' cannot match itself')
+    }
+  }
+
+  if (cardsInPlay.length === 1) {
+    gameText = document.createTextNode('Matching ' + cardsInPlay[0].rank + ' of  ' + cardsInPlay[0].suit + ' with...')
+  }
+
+  gameTextElement.appendChild(gameText)
+  document.getElementById('game-text').appendChild(gameTextElement)
+
+  const scoreTextElement = document.createElement('h2')
+  let scoreText = 'Score: ' + score
+
+  if (score === 4) {
+    scoreText = 'You won!'
+  }
+
+  scoreTextElement.append(scoreText)
+  document.getElementById('score').appendChild(scoreTextElement)
+}
+
+const createCard = (i, diff = 0) => {
+  cardElement = document.createElement('img')
+  cardElement.setAttribute('src', '../images/back.png') // default image is back.png
+  cardElement.setAttribute('data-id', i - diff)
+  cardElement.setAttribute('data-card', i)
+  cardElement.setAttribute('id', 'card-' + i)
+  cardElement.setAttribute('class', 'card')
+  cardElement.animate(animation, options)
+  cardElement.addEventListener('click', flipCard.bind(this, cardElement))
+  document.getElementById('game-board').appendChild(cardElement)
+}
+
+const shuffle = (parent) => {
+  for (let i = parent.childNodes.length; i >= 0; i--) {
+    parent.appendChild(parent.childNodes[Math.random() * i | 0])
+  }
+  return parent
+}
+
+const createBoard = () => {
+  // Creates the game board by adding cards as children to reset button id
+
+  // initialize score to 0
+  score = 0
+
+  //  makes cards 0-3
+  for (let i = 0; i < cards.length; i++) {
+    createCard(i)
+  }
+
+  // makes cards 4-7
+  for (let i = 4; i < cards.length + 4; i++) {
+    createCard(i, 4)
+  }
+
+  // shuffles all cards around
+  shuffle(document.getElementById('game-board'))
+
+  // adds reset button with function reset
+  document.getElementById('reset-button').addEventListener('click', reset)
 }
 ```
-
-## Tasks
-
-Developers should run these often!
-
-- `grunt nag` or just `grunt`: runs code quality analysis tools on your code
-    and complains
-- `grunt make-standard`: reformats all your code in the JavaScript Standard Style
-- `grunt <server|serve|s>`: generates bundles, watches, and livereloads
-- `grunt build`: place bundled styles and scripts where `index.html` can find
-    them
-- `grunt deploy`: builds and deploys master branch
-
-
-## Additional Resources
-
-- [Modern Javascript Explained for Dinosaurs](https://medium.com/@peterxjang/modern-javascript-explained-for-dinosaurs-f695e9747b70)
-- [Making Sense of Front End Build Tools](https://medium.freecodecamp.org/making-sense-of-front-end-build-tools-3a1b3a87043b)
-
-## [License](LICENSE)
-
-1. All content is licensed under a CC­BY­NC­SA 4.0 license.
-1. All software code is licensed under GNU GPLv3. For commercial use or
-    alternative licensing, please contact legal@ga.co.

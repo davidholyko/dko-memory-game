@@ -10,8 +10,11 @@ const onClickCard = () => {
   event.preventDefault()
 
   if (!store.start) { play.start() }
+
+  // on click function exits
   if (store.over) { return }
   if ($(event.target).attr('data-clickable') === 'false') { return }
+  if (store.cardsInPlay.length) { if ($(event.target).data('id') === store.cardsInPlay[0].id) { return } }
 
   storeActions.addCardToStore($(event.target).data('pair'), $(event.target).data('id'), event.target)
   play.flipCard($(event.target).data('pair'), $(event.target).data('id'), event.target)

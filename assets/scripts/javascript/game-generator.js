@@ -12,7 +12,7 @@ const createCard = (index, diff = 0) => {
      class="card">
    </img>`
   $('#game-board').append(element)
-  $(`#card-${index}`).animate(store.animation, store.options)
+  $(`#card-${index}`)[0].animate(store.animation, store.options)
 }
 
 const shuffleCards = (parent) => {

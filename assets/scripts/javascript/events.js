@@ -11,14 +11,17 @@ const onClickCard = () => {
 
   if (!store.start) { play.start() }
 
+  const pair = $(event.target).data('pair')
+  const id = $(event.target).data('id')
+
   // on click function exits
   if (store.over) { return }
   if ($(event.target).attr('data-clickable') === 'false') { return }
-  if (store.cardsInPlay.length) { if ($(event.target).data('id') === store.cardsInPlay[0].id) { return } }
+  if (store.cardsInPlay.length) { if (id === store.cardsInPlay[0].id) { return } }
 
   // flips card from back img to respective front face
-  storeActions.addCardToStore($(event.target).data('pair'), $(event.target).data('id'), event.target)
-  play.flipCard($(event.target).data('pair'), $(event.target).data('id'), event.target)
+  storeActions.addCardToStore(pair, id, event.target)
+  play.flipCard(pair, id, event.target)
 
   // do logic
   if (logic.checkForMatch()) {

@@ -10,6 +10,7 @@ const flipBack = () => {
   console.log('flipBack')
 
   const flip = card => {
+    console.log(card)
     card.animate(store.animation, store.options)
     $(card).attr('src', 'public/images/back.png')
   }

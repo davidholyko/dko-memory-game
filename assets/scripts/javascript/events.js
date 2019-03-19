@@ -18,6 +18,7 @@ const onClickCard = () => {
   if (store.over) { return }
   if ($(event.target).attr('data-clickable') === 'false') { return }
   if (store.cardsInPlay.length) { if (id === store.cardsInPlay[0].id) { return } }
+  if (store.cardsInPlay.length === 2) { return }
 
   // flips card from back img to respective front face
   storeActions.addCardToStore(pair, id, event.target)
@@ -26,9 +27,9 @@ const onClickCard = () => {
   // do logic
   if (logic.checkForMatch()) {
     play.makeUnclickable()
-    htmlActions.updateScoreText()
     storeActions.incrementScore()
     storeActions.resetCardsInPlay()
+    htmlActions.updateScoreText()
   } else {
     if (store.cardsInPlay.length === 2) { play.flipBack() }
   }
@@ -48,11 +49,7 @@ const resetBoard = () => {
 const toggleInstructions = () => {
   console.log('toggleInstructions')
   event.preventDefault()
-  if ($('#instructions').css('display') !== 'none') {
-    $('#instructions').css('display', 'none')
-  } else {
-    $('#instructions').css('display', 'inline')
-  }
+  $('#instructions').toggleClass('d-none')
 }
 
 const addHandlers = () => {

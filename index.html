@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Memory Card Game by DKO</title>
+
+  <!-- Do not add `link` tags-->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <meta name="viewport" content="width=1024">
+
+  <!-- Do not add `script` tags-->
+  <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+  <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+
+</head>
+
+<body>
+
+  <div id="header" class="d-flex flex-column">
+    <div id="header-text" class="py-3">
+      <h1 class="text-center">Memory Game</h1>
+    </div>
+    <div id="nav" class="w-100 py-2 d-flex justify-content-center">
+      <h3 id="toggle-instructions" class="py-0 px-3 my-0 page-link mx-2">Toggle Instructions</h3>
+    </div>
+
+  </div>
+
+  <div id="instructions" class="my-2">
+    <h1 id="instructions-header" class="d-flex justify-content-center">Instructions</h1>
+
+    <p class="my-2"><span class="mx-4"></span>Click two cards to match! The objective of the game is to match all the cards.
+      There are four unique cards to match. A card cannot be flipped over if it is already flipped up, there are two cards already flipped up and are queued to flip to back, and if a card is already matched with another card.
+    </p>
+  </div>
+
+  <div id="game">
+
+    <div id="user-feedback">
+      <div id="score-text" class="py-3"></div>
+      <div id="game-text"></div>
+    </div>
+
+    <div id="game-board-container">
+      <div id="game-board" class=""></div>
+      <button id="reset-button" type="button" class="myButton">Reset</button>
+    </div>
+
+  </div>
+
+  <div id="footer" class="footer w-100 d-flex justify-content-center">
+    <div class="d-flex flex-column justify-content-center">
+      <a class="copyright" href="https://github.com/davidholyko/wdi-fundamentals-memorygame" target="_blank">
+        <h2 class="text-center">Link to Github Repo</h2>
+      </a>
+    </div>
+  </div>
+
+</body>
